@@ -1,0 +1,10 @@
+<p>This is an example of an uncommon HTML bug that can occur when using nested iframes. The problem arises when an iframe's <code>src</code> attribute is dynamically set based on the content of another iframe. The solution uses a combination of event listeners and asynchronous loading to ensure the data is ready before trying to access it.</p> <pre><code class="language-html">&lt;iframe id="iframe1" src="iframe1.html"&gt;&lt;/iframe&gt;
+&lt;iframe id="iframe2"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+  const iframe1 = document.getElementById('iframe1');
+  iframe1.onload = () =&gt; {
+    const iframe1Content = iframe1.contentWindow.document.body.textContent;
+    const iframe2 = document.getElementById('iframe2');
+    iframe2.src = iframe1Content.trim() === 'valid' ? 'iframe2valid.html' : 'iframe2invalid.html';
+  };
+&lt;/script&gt;</code></pre>
