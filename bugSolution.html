@@ -1,0 +1,11 @@
+<p>The solution addresses the asynchronous loading issue by waiting for the first iframe to fully load before attempting to access its content and setting the second iframe's source.  This ensures that the data is available before it is used.</p><pre><code class="language-html">&lt;iframe id="iframe1" src="iframe1.html"&gt;&lt;/iframe&gt;
+&lt;iframe id="iframe2"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+  const iframe1 = document.getElementById('iframe1');
+  iframe1.onload = function() {
+    const iframe1Content = iframe1.contentWindow.document.body.textContent;
+    const iframe2 = document.getElementById('iframe2');
+    const src = iframe1Content.trim() === 'valid' ? 'iframe2valid.html' : 'iframe2invalid.html';
+    iframe2.src = src;
+  };
+&lt;/script&gt;</code></pre>
